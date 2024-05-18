@@ -7,8 +7,11 @@
     <p>
         This jobs pays {{ $job->salary }} per month.
     </p>
-    <p class="mt-8">
-        <x-button href="/jobs/{{ $job->id }}/edit">Edit Job</x-button>
-    </p>
+
+    @can('edit-job', $job)
+        <p class="mt-8">
+            <x-button href="/jobs/{{ $job->id }}/edit">Edit Job</x-button>
+        </p>   
+    @endcan
     
 </x-layout>

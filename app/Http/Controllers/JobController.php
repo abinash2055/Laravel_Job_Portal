@@ -45,13 +45,6 @@ class JobController extends Controller
 
     public function edit (Job $job)
     {
-        Gate::define('edit-job', function(User $user, Job $job) {
-            return $job->employer->user->is($user);
-    
-        });
-        if (Auth::guest()) {
-            return redirect('/login');
-        }
 
         Gate::authorize("edit-job", $job);
 
@@ -60,6 +53,8 @@ class JobController extends Controller
 
     public function update (Job $job)
     {
+        // Gate::authorize("edit-job", $job);
+
          // Validate
     request()->validate([
         'title' => ['required', 'min:3'],
@@ -78,6 +73,7 @@ class JobController extends Controller
 
     public function destroy (Job $job)
     {
+        Gate::authorize("edit-job", $job);
 
         // delete the job
         $job->delete();
