@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use App\Mail\JobPosted;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -11,7 +13,7 @@ class JobController extends Controller
 {
     public function index ()
     {
-        $jobs = Job::with('employer')->simplePaginate(3);
+        $jobs = Job::with('employer')->latest()->simplePaginate(3);
 
         return view('pages.jobs.index', [
             'jobs' => $jobs
@@ -35,11 +37,15 @@ class JobController extends Controller
             'salary' => ['required']
         ]);
     
-        Job::create([
+        $job = Job::create([
             'title'=>request('title'),
             'salary'=>request('salary'),
             'employer_id'=> 25,
         ]);
+
+        Mail::to($job->employer->user)->send (
+            new JobPosted($job)
+        );
         return redirect("/jobs"); 
     }
 
