@@ -8,7 +8,7 @@
             <a href="/jobs/{{$job['id']}}" class= "text-purple-900 hover:underline block px-4 py-6 border border-gray-200 rounded-lg">
                 <div class="font-bold text-blue-600 text-sm">{{$job -> employer -> name}}</div>
                 <div>
-                    <strong>{{ $job['title'] }}:</strong> Pays {{$job['salary']}} per month.
+                    <strong class="personalsignature">{{ $job['title'] }}:</strong> Pays {{$job['salary']}} per month.
                 </div>
             </a>
         @endforeach
