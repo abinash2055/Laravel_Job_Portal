@@ -4,9 +4,17 @@
 use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 use App\Mail\JobPosted;
+use App\Jobs\TranlateJob;
+use App\Models\Job;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
+use App\Jobs\TranslateJob;
 
+Route::get('mail',function () {
+    $job = Job::first();
+    TranslateJob::dispatch($job);
+    return "DONE ";
+});
 
 Route::view('/', 'home');
 Route::view('/contact', 'contact');
