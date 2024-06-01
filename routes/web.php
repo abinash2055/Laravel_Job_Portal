@@ -17,7 +17,14 @@ Route::get('mail',function () {
 });
 
 Route::view('/', 'home');
-Route::view('/contact', 'contact');
+Route::get('/', function () {
+    return view('home');
+})->name('home');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+// Route::view('/contact', 'contact');
 
 // Route::resource('jobs', JobController::class)->only(['index', 'show']);
 // Route::resource('jobs', JobController::class)->except(['index', 'show']);
