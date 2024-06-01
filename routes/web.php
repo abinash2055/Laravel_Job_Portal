@@ -28,7 +28,7 @@ Route::get('/', function () {
 
 // contact 
 Route::get('/contact', function () {
-    return view('home');
+    return view('contact');
 })->name('contact');
 
 // Define the route for showing the form
